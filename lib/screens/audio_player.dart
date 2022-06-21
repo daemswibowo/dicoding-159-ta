@@ -24,6 +24,9 @@ class _AudioPlayerState extends State<AudioPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double imageSize = screenSize.width / 2 - (screenSize.width * 0.1);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(' '),
@@ -34,46 +37,52 @@ class _AudioPlayerState extends State<AudioPlayerScreen> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ListTile(
-            title: Text(widget.title,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold)),
-            subtitle:
-                Text(widget.category!, style: const TextStyle(fontSize: 20)),
-          ),
-          Card(
-            child: Image.network(widget.url,
-                width: 210, height: 210, fit: BoxFit.cover),
-            elevation: 16,
-            shadowColor: Colors.black,
-          ),
-          Column(
-            children: [
-              Slider(
-                value: _currentSliderValue,
-                max: 100,
-                label: _currentSliderValue.round().toString(),
-                onChanged: (double value) {
-                  setState(() {
-                    _currentSliderValue = value;
-                  });
-                },
-              ),
-              const Padding(padding: EdgeInsets.all(4)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Expanded(
+              flex: 1,
+              child: ListTile(
+                title: Text(widget.title,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold)),
+                subtitle: Text(widget.category!,
+                    style: const TextStyle(fontSize: 20)),
+              )),
+          Expanded(
+              flex: 1,
+              child: Card(
+                child: Image.network(widget.url,
+                    width: imageSize, height: imageSize, fit: BoxFit.cover),
+                elevation: 16,
+                shadowColor: Colors.black,
+              )),
+          Expanded(
+              flex: 1,
+              child: Column(
                 children: [
-                  InkWell(
-                    onTap: () => {},
-                    child: SvgPicture.asset('assets/play.svg'),
+                  Slider(
+                    value: _currentSliderValue,
+                    max: 100,
+                    label: _currentSliderValue.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        _currentSliderValue = value;
+                      });
+                    },
                   ),
+                  const Padding(padding: EdgeInsets.all(4)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        onTap: () => {},
+                        child: SvgPicture.asset('assets/play.svg'),
+                      ),
+                    ],
+                  ),
+                  const Padding(padding: EdgeInsets.all(8)),
                 ],
-              ),
-              const Padding(padding: EdgeInsets.all(8)),
-            ],
-          ),
+              )),
         ],
       ),
       backgroundColor: Colors.white,

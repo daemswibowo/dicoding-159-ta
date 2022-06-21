@@ -3,21 +3,16 @@ import 'package:get_motivated/components/organisms/home/app_bar.dart';
 import 'package:get_motivated/components/organisms/home/data_list.dart';
 import 'package:get_motivated/screens/information.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  goToInfo() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const InformationScreen()));
-  }
-
-  @override
   Widget build(BuildContext context) {
+
+    goToInfo() {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const InformationScreen()));
+    }
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
